@@ -26,13 +26,12 @@ export async function POST(req) {
 
 //Read Data
 export async function GET() {
+    BigInt.prototype.toJSON = function () {
+        return this.toString();
+    };
     try {
         const prisma = new PrismaClient();
-        let result = await prisma.category.findMany({
-            where: {
-                parentId: 1,
-            },
-        });
+        let result = await prisma.category.findMany();
         return NextResponse.json({
             status: "Success",
             data: result,
@@ -62,7 +61,6 @@ export async function PUT() {
                     " Lorem ipsum dolor sit amet consectetur adipisicing Mollitia, ex.",
             },
         });
-
         return NextResponse.json({
             status: "Success",
             data: result,
@@ -84,7 +82,6 @@ export async function DELETE() {
                 id: 8,
             },
         });
-
         return NextResponse.json({
             status: "Success",
             data: result,
