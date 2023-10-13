@@ -74,12 +74,14 @@ export async function PUT() {
 }
 
 //Delete Data
-export async function DELETE() {
+export async function DELETE(req) {
     try {
         const prisma = new PrismaClient();
+        const { searchParams } = new URL(req.url);
+        let id = searchParams.get("id");
         let result = await prisma.category.delete({
             where: {
-                id: 8,
+                id: id,
             },
         });
         return NextResponse.json({
