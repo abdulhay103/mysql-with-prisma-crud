@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { Result } from "postcss";
 
 export async function POST(req) {
+    BigInt.prototype.toJSON = function () {
+        return this.toString();
+    };
     try {
         const prisma = new PrismaClient();
         // const resBody = await req.json();
@@ -12,7 +14,7 @@ export async function POST(req) {
                 middleName: "Akando",
                 lastName: "Hasan",
                 mobile: "01712445566",
-                email: "hasan@gmail.com",
+                email: "hasan2@gmail.com",
                 passwordHash: "1234",
                 intro: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ex.",
                 profile:
