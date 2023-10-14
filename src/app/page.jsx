@@ -76,6 +76,14 @@ export default async function Home() {
                 </table>
             </div>
             <p>Lorem ipsum dolor sit amet.</p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel,
+                iusto?
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Adipisci omnis quibusdam dolorem error corrupti doloribus!
+            </p>
         </main>
     );
 }
