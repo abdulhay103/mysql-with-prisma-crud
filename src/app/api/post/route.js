@@ -1,26 +1,45 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function POST() {
+export async function POST(req) {
     BigInt.prototype.toJSON = function () {
         return this.toString();
     };
     try {
+        const reqBody = await req.json();
         const prisma = new PrismaClient();
         let result = await prisma.post.create({
             data: {
-                authorId: 1,
-                parentId: 1,
-                title: "Lorem ipsum",
-                metaTitle: "Lorem5",
-                slug: "lorem Ipsum",
-                summary: "Lorem ipsum dolor sit amet, consectetur",
-                published: 0,
-                content:
-                    "Adipisci omnis quibusdam dolorem error corrupti doloribus!",
+                authorId: reqBody["authorId"],
+                parentId: reqBody["parentId"],
+                title: reqBody["title"],
+                metaTitle: reqBody["metaTitle"],
+                slug: reqBody["slug"],
+                summary: reqBody["summary"],
+                published: reqBody["published"],
+                content: reqBody["post_content"],
                 post_comment: {
-                    title: "Dolor sit amet",
-                    content: "Lorem ipsum dolor sit amet, consectetur",
+                    create: {
+                        title: reqBody["comm_title"],
+                        content: reqBody["comm_content"],
+                        parentId: reqBody["parentId"],
+                        published: reqBody["published"],
+                    },
+                },
+                post_category: {
+                    create: {
+                        categoryId: reqBody["categoryId"],
+                    },
+                },
+                post_meta: {
+                    create: {
+                        key: reqBody["key"],
+                    },
+                },
+                post_tag: {
+                    create: {
+                        tagId: reqBody["tagId"],
+                    },
                 },
             },
         });
